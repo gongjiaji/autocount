@@ -1,0 +1,54 @@
+{#    <form method="GET">#}
+{#        {{ itemFilter.form }}#}
+{#        <button type="submit">Search</button>#}
+{#    </form>#}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/http_maxcdn.bootstrapcdn.com_bootstrap_4.0.0_css_bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'searchBar/style.css' %}">
+    <script src="{% static 'js/http_code.jquery.com_jquery-3.2.1.slim.js' %}"></script>
+    <script src="{% static 'js/http_cdnjs.cloudflare.com_ajax_libs_popper.js_1.12.9_umd_popper.js' %}"></script>
+    <script src="{% static 'js/http_maxcdn.bootstrapcdn.com_bootstrap_4.0.0_js_bootstrap.js' %}"></script>
+
+
+</head>
+<body>
+{% include 'autoCount/navbar.html' %}
+<div class="form-group pull-right">
+    <input type="text" class="search form-control" placeholder="What you looking for?">
+</div>
+<span class="counter pull-right"></span>
+<table class="table table-hover table-bordered results">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th class="col-md-5 col-xs-5">Description</th>
+        <th class="col-md-4 col-xs-4">Item Code</th>
+        <th class="col-md-3 col-xs-3">UOM</th>
+    </tr>
+    <tr class="warning no-result">
+        <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in items %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ item.description }}</td>
+            <td>{{ item.itemcode }}</td>
+            <td>{{ item.baseuom }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</body>
+<script src="{% static 'searchBar/script.js' %}"></script>
+
+</html>

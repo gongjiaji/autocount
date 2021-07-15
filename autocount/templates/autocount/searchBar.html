@@ -1,0 +1,29 @@
+{% block searchBar %}
+    <div class="form-group pull-right">
+        <input type="text" class="search form-control" placeholder="What you looking for?">
+    </div>
+    <span class="counter pull-right"></span>
+    <table class="table table-hover table-bordered results">
+        <thead>
+        <tr>
+            <th class="col-md-5 col-xs-5">Item Code</th>
+            <th class="col-md-4 col-xs-4">Description</th>
+            <th class="col-md-3 col-xs-3">UOM</th>
+        </tr>
+        <tr class="warning no-result">
+            <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td>{{ item.itemcode }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.baseuom }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
