@@ -486,6 +486,228 @@ class Item(models.Model):
         return self.itemcode
 
 
+class Itemuom(models.Model):
+    itemcode = models.CharField(db_column='ItemCode', primary_key=True, max_length=30)  # Field name made lowercase.
+    uom = models.CharField(db_column='UOM', max_length=8)  # Field name made lowercase.
+    rate = models.DecimalField(db_column='Rate', max_digits=25, decimal_places=8)  # Field name made lowercase.
+    shelf = models.CharField(db_column='Shelf', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    price = models.DecimalField(db_column='Price', max_digits=25, decimal_places=8, blank=True,
+                                null=True)  # Field name made lowercase.
+    cost = models.DecimalField(db_column='Cost', max_digits=25, decimal_places=8, blank=True,
+                               null=True)  # Field name made lowercase.
+    realcost = models.DecimalField(db_column='RealCost', max_digits=25, decimal_places=8, blank=True,
+                                   null=True)  # Field name made lowercase.
+    mostrecentlycost = models.DecimalField(db_column='MostRecentlyCost', max_digits=25, decimal_places=8, blank=True,
+                                           null=True)  # Field name made lowercase.
+    minsaleprice = models.DecimalField(db_column='MinSalePrice', max_digits=25, decimal_places=8, blank=True,
+                                       null=True)  # Field name made lowercase.
+    maxsaleprice = models.DecimalField(db_column='MaxSalePrice', max_digits=25, decimal_places=8, blank=True,
+                                       null=True)  # Field name made lowercase.
+    minpurchaseprice = models.DecimalField(db_column='MinPurchasePrice', max_digits=25, decimal_places=8, blank=True,
+                                           null=True)  # Field name made lowercase.
+    maxpurchaseprice = models.DecimalField(db_column='MaxPurchasePrice', max_digits=25, decimal_places=8, blank=True,
+                                           null=True)  # Field name made lowercase.
+    balqty = models.DecimalField(db_column='BalQty', max_digits=25, decimal_places=8)  # Field name made lowercase.
+    minqty = models.DecimalField(db_column='MinQty', max_digits=25, decimal_places=8, blank=True,
+                                 null=True)  # Field name made lowercase.
+    maxqty = models.DecimalField(db_column='MaxQty', max_digits=25, decimal_places=8, blank=True,
+                                 null=True)  # Field name made lowercase.
+    normallevel = models.DecimalField(db_column='NormalLevel', max_digits=25, decimal_places=8, blank=True,
+                                      null=True)  # Field name made lowercase.
+    reolevel = models.DecimalField(db_column='ReOLevel', max_digits=25, decimal_places=8, blank=True,
+                                   null=True)  # Field name made lowercase.
+    reoqty = models.DecimalField(db_column='ReOQty', max_digits=25, decimal_places=8, blank=True,
+                                 null=True)  # Field name made lowercase.
+    foclevel = models.DecimalField(db_column='FOCLevel', max_digits=25, decimal_places=8, blank=True,
+                                   null=True)  # Field name made lowercase.
+    focqty = models.DecimalField(db_column='FOCQty', max_digits=25, decimal_places=8, blank=True,
+                                 null=True)  # Field name made lowercase.
+    bonuspointqty = models.DecimalField(db_column='BonusPointQty', max_digits=25, decimal_places=8, blank=True,
+                                        null=True)  # Field name made lowercase.
+    bonuspoint = models.DecimalField(db_column='BonusPoint', max_digits=19, decimal_places=2, blank=True,
+                                     null=True)  # Field name made lowercase.
+    weight = models.DecimalField(db_column='Weight', max_digits=25, decimal_places=8, blank=True,
+                                 null=True)  # Field name made lowercase.
+    weightuom = models.CharField(db_column='WeightUOM', max_length=8, blank=True,
+                                 null=True)  # Field name made lowercase.
+    volume = models.DecimalField(db_column='Volume', max_digits=25, decimal_places=8, blank=True,
+                                 null=True)  # Field name made lowercase.
+    volumeuom = models.CharField(db_column='VolumeUOM', max_length=8, blank=True,
+                                 null=True)  # Field name made lowercase.
+    barcode = models.CharField(db_column='BarCode', max_length=30, blank=True, null=True)  # Field name made lowercase.
+    lastupdate = models.IntegerField(db_column='LastUpdate')  # Field name made lowercase.
+    redeembonuspoint = models.DecimalField(db_column='RedeemBonusPoint', max_digits=19, decimal_places=2, blank=True,
+                                           null=True)  # Field name made lowercase.
+    csgnqty = models.DecimalField(db_column='CSGNQty', max_digits=25, decimal_places=8, blank=True,
+                                  null=True)  # Field name made lowercase.
+    price2 = models.DecimalField(db_column='Price2', max_digits=25, decimal_places=8, blank=True,
+                                 null=True)  # Field name made lowercase.
+
+    class Meta:
+        db_table = 'ItemUOM'
+        unique_together = (('itemcode', 'uom'),)
+
+
+    def __str__(self) -> str:
+        return self.itemcode + self.uom
+
+
+class Salesagent(models.Model):
+    salesagent = models.CharField(db_column='SalesAgent', primary_key=True, max_length=12)  # Field name made lowercase.
+    description = models.CharField(db_column='Description', max_length=40, blank=True,
+                                   null=True)  # Field name made lowercase.
+    desc2 = models.CharField(db_column='Desc2', max_length=40, blank=True, null=True)  # Field name made lowercase.
+    isactive = models.CharField(db_column='IsActive', max_length=1)  # Field name made lowercase.
+    lastupdate = models.IntegerField(db_column='LastUpdate')  # Field name made lowercase.
+    signature = models.BinaryField(db_column='Signature', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        db_table = 'SalesAgent'
+
+
+class Debtortype(models.Model):
+    debtortype = models.CharField(db_column='DebtorType', primary_key=True, max_length=20)  # Field name made lowercase.
+    description = models.CharField(db_column='Description', max_length=40, blank=True,
+                                   null=True)  # Field name made lowercase.
+    desc2 = models.CharField(db_column='Desc2', max_length=40, blank=True, null=True)  # Field name made lowercase.
+    isactive = models.CharField(db_column='IsActive', max_length=1)  # Field name made lowercase.
+    lastupdate = models.IntegerField(db_column='LastUpdate')  # Field name made lowercase.
+
+    class Meta:
+        db_table = 'DebtorType'
+
+class Debtor(models.Model):
+    accno = models.OneToOneField('Glmast', models.DO_NOTHING, db_column='AccNo',
+                                 primary_key=True)  # Field name made lowercase.
+    companyname = models.CharField(db_column='CompanyName', max_length=100, blank=True,
+                                   null=True)  # Field name made lowercase.
+    desc2 = models.CharField(db_column='Desc2', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    registerno = models.CharField(db_column='RegisterNo', max_length=25, blank=True,
+                                  null=True)  # Field name made lowercase.
+    address1 = models.CharField(db_column='Address1', max_length=40, blank=True,
+                                null=True)  # Field name made lowercase.
+    address2 = models.CharField(db_column='Address2', max_length=40, blank=True,
+                                null=True)  # Field name made lowercase.
+    address3 = models.CharField(db_column='Address3', max_length=40, blank=True,
+                                null=True)  # Field name made lowercase.
+    address4 = models.CharField(db_column='Address4', max_length=40, blank=True,
+                                null=True)  # Field name made lowercase.
+    postcode = models.CharField(db_column='PostCode', max_length=10, blank=True,
+                                null=True)  # Field name made lowercase.
+    deliveraddr1 = models.CharField(db_column='DeliverAddr1', max_length=40, blank=True,
+                                    null=True)  # Field name made lowercase.
+    deliveraddr2 = models.CharField(db_column='DeliverAddr2', max_length=40, blank=True,
+                                    null=True)  # Field name made lowercase.
+    deliveraddr3 = models.CharField(db_column='DeliverAddr3', max_length=40, blank=True,
+                                    null=True)  # Field name made lowercase.
+    deliveraddr4 = models.CharField(db_column='DeliverAddr4', max_length=40, blank=True,
+                                    null=True)  # Field name made lowercase.
+    deliverpostcode = models.CharField(db_column='DeliverPostCode', max_length=10, blank=True,
+                                       null=True)  # Field name made lowercase.
+    attention = models.CharField(db_column='Attention', max_length=40, blank=True,
+                                 null=True)  # Field name made lowercase.
+    phone1 = models.CharField(db_column='Phone1', max_length=25, blank=True, null=True)  # Field name made lowercase.
+    phone2 = models.CharField(db_column='Phone2', max_length=25, blank=True, null=True)  # Field name made lowercase.
+    fax1 = models.CharField(db_column='Fax1', max_length=25, blank=True, null=True)  # Field name made lowercase.
+    fax2 = models.CharField(db_column='Fax2', max_length=25, blank=True, null=True)  # Field name made lowercase.
+    areacode = models.ForeignKey(Area, models.DO_NOTHING, db_column='AreaCode', blank=True,
+                                 null=True)  # Field name made lowercase.
+    salesagent = models.ForeignKey('Salesagent', models.DO_NOTHING, db_column='SalesAgent', blank=True,
+                                   null=True, related_name='Salesagent')  # Field name made lowercase.
+    debtortype = models.ForeignKey('Debtortype', models.DO_NOTHING, db_column='DebtorType', blank=True,
+                                   null=True, related_name='Debtor_debtortype')  # Field name made lowercase.
+    natureofbusiness = models.CharField(db_column='NatureOfBusiness', max_length=40, blank=True,
+                                        null=True)  # Field name made lowercase.
+    weburl = models.CharField(db_column='WebURL', max_length=80, blank=True, null=True)  # Field name made lowercase.
+    emailaddress = models.CharField(db_column='EmailAddress', max_length=80, blank=True,
+                                    null=True)  # Field name made lowercase.
+    displayterm = models.ForeignKey('Terms', models.DO_NOTHING, db_column='DisplayTerm')  # Field name made lowercase.
+    creditlimit = models.DecimalField(db_column='CreditLimit', max_digits=19, decimal_places=2, blank=True,
+                                      null=True)  # Field name made lowercase.
+    agingon = models.CharField(db_column='AgingOn', max_length=1, blank=True, null=True)  # Field name made lowercase.
+    statementtype = models.CharField(db_column='StatementType', max_length=1, blank=True,
+                                     null=True)  # Field name made lowercase.
+    currencycode = models.ForeignKey(Currency, models.DO_NOTHING,
+                                     db_column='CurrencyCode')  # Field name made lowercase.
+    allowexceedcreditlimit = models.CharField(db_column='AllowExceedCreditLimit',
+                                              max_length=1)  # Field name made lowercase.
+    note = models.TextField(db_column='Note', blank=True, null=True)  # Field name made lowercase.
+    exemptno = models.CharField(db_column='ExemptNo', max_length=60, blank=True,
+                                null=True)  # Field name made lowercase.
+    expirydate = models.DateTimeField(db_column='ExpiryDate', blank=True, null=True)  # Field name made lowercase.
+    pricecategory = models.ForeignKey('Pricecategory', models.DO_NOTHING, db_column='PriceCategory', blank=True,
+                                      null=True, related_name='Debtor_pricecategory')  # Field name made lowercase.
+    taxtype = models.ForeignKey('Taxtype', models.DO_NOTHING, db_column='TaxType', blank=True,
+                                null=True, related_name='Debtor_taxtype')  # Field name made lowercase.
+    discountpercent = models.DecimalField(db_column='DiscountPercent', max_digits=18,
+                                          decimal_places=6)  # Field name made lowercase.
+    detaildiscount = models.CharField(db_column='DetailDiscount', max_length=20, blank=True,
+                                      null=True)  # Field name made lowercase.
+    lastmodified = models.DateTimeField(db_column='LastModified')  # Field name made lowercase.
+    lastmodifieduserid = models.ForeignKey('Users', models.DO_NOTHING,
+                                           db_column='LastModifiedUserID', related_name='Debtor_LastModifiedUserID')  # Field name made lowercase.
+    createdtimestamp = models.DateTimeField(db_column='CreatedTimeStamp')  # Field name made lowercase.
+    createduserid = models.ForeignKey('Users', models.DO_NOTHING,
+                                      db_column='CreatedUserID', related_name='createduserid')  # Field name made lowercase.
+    overduelimit = models.DecimalField(db_column='OverdueLimit', max_digits=19, decimal_places=2, blank=True,
+                                       null=True)  # Field name made lowercase.
+    hasbonuspoint = models.CharField(db_column='HasBonusPoint', max_length=1)  # Field name made lowercase.
+    openingbonuspoint = models.DecimalField(db_column='OpeningBonusPoint', max_digits=19, decimal_places=2, blank=True,
+                                            null=True)  # Field name made lowercase.
+    qtblockstatus = models.SmallIntegerField(db_column='QTBlockStatus', blank=True,
+                                             null=True)  # Field name made lowercase.
+    soblockstatus = models.SmallIntegerField(db_column='SOBlockStatus', blank=True,
+                                             null=True)  # Field name made lowercase.
+    doblockstatus = models.SmallIntegerField(db_column='DOBlockStatus', blank=True,
+                                             null=True)  # Field name made lowercase.
+    ivblockstatus = models.SmallIntegerField(db_column='IVBlockStatus', blank=True,
+                                             null=True)  # Field name made lowercase.
+    csblockstatus = models.SmallIntegerField(db_column='CSBlockStatus', blank=True,
+                                             null=True)  # Field name made lowercase.
+    qtblockmessage = models.CharField(db_column='QTBlockMessage', max_length=40, blank=True,
+                                      null=True)  # Field name made lowercase.
+    soblockmessage = models.CharField(db_column='SOBlockMessage', max_length=40, blank=True,
+                                      null=True)  # Field name made lowercase.
+    doblockmessage = models.CharField(db_column='DOBlockMessage', max_length=40, blank=True,
+                                      null=True)  # Field name made lowercase.
+    ivblockmessage = models.CharField(db_column='IVBlockMessage', max_length=40, blank=True,
+                                      null=True)  # Field name made lowercase.
+    csblockmessage = models.CharField(db_column='CSBlockMessage', max_length=40, blank=True,
+                                      null=True)  # Field name made lowercase.
+    externallink = models.TextField(db_column='ExternalLink', blank=True, null=True)  # Field name made lowercase.
+    isgroupcompany = models.CharField(db_column='IsGroupCompany', max_length=1)  # Field name made lowercase.
+    isactive = models.CharField(db_column='IsActive', max_length=1)  # Field name made lowercase.
+    lastupdate = models.IntegerField(db_column='LastUpdate')  # Field name made lowercase.
+    contactinfo = models.TextField(db_column='ContactInfo', blank=True, null=True)  # Field name made lowercase.
+    accountgroup = models.CharField(db_column='AccountGroup', max_length=12, blank=True,
+                                    null=True)  # Field name made lowercase.
+    markupratio = models.DecimalField(db_column='MarkupRatio', max_digits=18, decimal_places=6, blank=True,
+                                      null=True)  # Field name made lowercase.
+    taxregisterno = models.CharField(db_column='TaxRegisterNo', max_length=20, blank=True,
+                                     null=True)  # Field name made lowercase.
+    calcdiscountonunitprice = models.CharField(db_column='CalcDiscountOnUnitPrice', max_length=1, blank=True,
+                                               null=True)  # Field name made lowercase.
+    gststatusverifieddate = models.DateTimeField(db_column='GSTStatusVerifiedDate', blank=True,
+                                                 null=True)  # Field name made lowercase.
+    inclusivetax = models.CharField(db_column='InclusiveTax', max_length=1)  # Field name made lowercase.
+    roundingmethod = models.IntegerField(db_column='RoundingMethod')  # Field name made lowercase.
+    istaxregistered = models.CharField(db_column='IsTaxRegistered', max_length=1, blank=True,
+                                       null=True)  # Field name made lowercase.
+    receiptwithholdingtaxcode = models.CharField(db_column='ReceiptWithholdingTaxCode', max_length=14, blank=True,
+                                                 null=True)  # Field name made lowercase.
+    paymentwithholdingtaxcode = models.CharField(db_column='PaymentWithholdingTaxCode', max_length=14, blank=True,
+                                                 null=True)  # Field name made lowercase.
+    servicetaxregisterno = models.CharField(db_column='ServiceTaxRegisterNo', max_length=20, blank=True,
+                                            null=True)  # Field name made lowercase.
+    selfbilledapprovalno = models.CharField(db_column='SelfBilledApprovalNo', max_length=30, blank=True,
+                                            null=True)  # Field name made lowercase.
+
+    class Meta:
+        db_table = 'Debtor'
+
+    def __str__(self):
+        return self.accno+self.companyname
+
 class ItemTable(tables.Table):
     class Meta:
         model = Item
