@@ -486,6 +486,38 @@ class Item(models.Model):
         return self.itemcode
 
 
+class Pricecategory(models.Model):
+    pricecategory = models.CharField(db_column='PriceCategory', primary_key=True,
+                                     max_length=12)  # Field name made lowercase.
+    description = models.CharField(db_column='Description', max_length=40, blank=True,
+                                   null=True)  # Field name made lowercase.
+    discountpercent = models.DecimalField(db_column='DiscountPercent', max_digits=18, decimal_places=6, blank=True,
+                                          null=True)  # Field name made lowercase.
+    detaildiscount = models.CharField(db_column='DetailDiscount', max_length=20, blank=True,
+                                      null=True)  # Field name made lowercase.
+    lastupdate = models.IntegerField(db_column='LastUpdate')  # Field name made lowercase.
+    markupratio = models.DecimalField(db_column='MarkupRatio', max_digits=18, decimal_places=6, blank=True,
+                                      null=True)  # Field name made lowercase.
+
+    class Meta:
+        db_table = 'PriceCategory'
+
+
+class Terms(models.Model):
+    displayterm = models.CharField(db_column='DisplayTerm', primary_key=True,
+                                   max_length=30)  # Field name made lowercase.
+    terms = models.CharField(db_column='Terms', max_length=30, blank=True, null=True)  # Field name made lowercase.
+    lastupdate = models.IntegerField(db_column='LastUpdate')  # Field name made lowercase.
+    termtype = models.CharField(db_column='TermType', max_length=1, blank=True, null=True)  # Field name made lowercase.
+    termdays = models.IntegerField(db_column='TermDays', blank=True, null=True)  # Field name made lowercase.
+    discountdays = models.IntegerField(db_column='DiscountDays', blank=True, null=True)  # Field name made lowercase.
+    discountpercent = models.DecimalField(db_column='DiscountPercent', max_digits=18, decimal_places=6, blank=True,
+                                          null=True)  # Field name made lowercase.
+
+    class Meta:
+        db_table = 'Terms'
+
+
 class Itemuom(models.Model):
     itemcode = models.CharField(db_column='ItemCode', primary_key=True, max_length=30)  # Field name made lowercase.
     uom = models.CharField(db_column='UOM', max_length=8)  # Field name made lowercase.
@@ -712,3 +744,9 @@ class ItemTable(tables.Table):
     class Meta:
         model = Item
         fields = ['itemcode', 'description','baseuom',]
+
+#
+class CustomerTable(tables.Table):
+    class Meta:
+        model = Debtor
+        fields = ['accno', 'companyname']
