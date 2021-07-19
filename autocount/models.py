@@ -1,7 +1,7 @@
+import django.urls
 from django.db import models
 import django_tables2 as tables
-
-
+from django_tables2.utils import A
 
 class Acctype(models.Model):
     acctype = models.CharField(db_column='AccType', primary_key=True, max_length=2)  # Field name made lowercase.
@@ -64,6 +64,9 @@ class Glmast(models.Model):
 
     class Meta:
         db_table = 'GLMast'
+
+    def __str__(self):
+        return self.accno
 
 
 class Itemgroup(models.Model):
@@ -579,7 +582,6 @@ class Itemuom(models.Model):
         db_table = 'ItemUOM'
         unique_together = (('itemcode', 'uom'),)
 
-
     def __str__(self) -> str:
         return self.itemcode + self.uom
 
@@ -607,6 +609,7 @@ class Debtortype(models.Model):
 
     class Meta:
         db_table = 'DebtorType'
+
 
 class Debtor(models.Model):
     accno = models.OneToOneField('Glmast', models.DO_NOTHING, db_column='AccNo',
@@ -677,10 +680,12 @@ class Debtor(models.Model):
                                       null=True)  # Field name made lowercase.
     lastmodified = models.DateTimeField(db_column='LastModified')  # Field name made lowercase.
     lastmodifieduserid = models.ForeignKey('Users', models.DO_NOTHING,
-                                           db_column='LastModifiedUserID', related_name='Debtor_LastModifiedUserID')  # Field name made lowercase.
+                                           db_column='LastModifiedUserID',
+                                           related_name='Debtor_LastModifiedUserID')  # Field name made lowercase.
     createdtimestamp = models.DateTimeField(db_column='CreatedTimeStamp')  # Field name made lowercase.
     createduserid = models.ForeignKey('Users', models.DO_NOTHING,
-                                      db_column='CreatedUserID', related_name='createduserid')  # Field name made lowercase.
+                                      db_column='CreatedUserID',
+                                      related_name='createduserid')  # Field name made lowercase.
     overduelimit = models.DecimalField(db_column='OverdueLimit', max_digits=19, decimal_places=2, blank=True,
                                        null=True)  # Field name made lowercase.
     hasbonuspoint = models.CharField(db_column='HasBonusPoint', max_length=1)  # Field name made lowercase.
@@ -740,13 +745,28 @@ class Debtor(models.Model):
     def __str__(self):
         return self.accno+self.companyname
 
+
+class Order(models.Model):
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    quantity = models.IntegerField()
+
+    def __str__(self):
+        return f"${self.price} x {quantity}"
+
 class ItemTable(tables.Table):
+    details = tables.LinkColumn('item', args=[A('dockey')], text="Details")
     class Meta:
         model = Item
-        fields = ['itemcode', 'description','baseuom',]
+        fields = ['itemcode', 'description', 'baseuom', ]
 
-#
+
 class CustomerTable(tables.Table):
+    print("enter")
+    dk = "5"
+    name = tables.LinkColumn("customerOrder", text="static text", args=[dk, A("pk")], attrs={
+        "a": {"style": "color: red;"}
+    })
+
     class Meta:
         model = Debtor
         fields = ['accno', 'companyname']

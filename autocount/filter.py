@@ -1,5 +1,5 @@
 import django_filters
-from .models import Item
+from .models import Item, Debtor
 
 
 class ItemFilter(django_filters.FilterSet):
