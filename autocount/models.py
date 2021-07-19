@@ -743,7 +743,7 @@ class Debtor(models.Model):
         db_table = 'Debtor'
 
     def __str__(self):
-        return self.accno+self.companyname
+        return str(self.accno) + self.companyname
 
 
 class Order(models.Model):

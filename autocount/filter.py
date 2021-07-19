@@ -12,10 +12,10 @@ class ItemFilter(django_filters.FilterSet):
         fields = ['itemcode', 'description', 'baseuom', ]
 
 
-# class CustomerFilter(django_filters.FilterSet):
-#     accno = django_filters.CharFilter(label='Account Number', lookup_expr="icontains")
-#     companyname = django_filters.CharFilter(label='Company Name', lookup_expr="icontains")
-#
-#     class Meta:
-#         model = Item
-#         fields = ['accno', 'companyname']
+class CustomerFilter(django_filters.FilterSet):
+    # accno = django_filters.CharFilter(label='Account Number', lookup_expr="icontains")
+    companyname = django_filters.CharFilter(label='Company Name ', lookup_expr="icontains")
+
+    class Meta:
+        model = Debtor
+        fields = ['companyname']
