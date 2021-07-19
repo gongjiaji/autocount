@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>place order</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/http_maxcdn.bootstrapcdn.com_bootstrap_4.0.0_css_bootstrap.css' %}">
+    <script src="{% static 'js/http_code.jquery.com_jquery-3.2.1.slim.js' %}"></script>
+    <script src="{% static 'js/http_cdnjs.cloudflare.com_ajax_libs_popper.js_1.12.9_umd_popper.js' %}"></script>
+    <script src="{% static 'js/http_maxcdn.bootstrapcdn.com_bootstrap_4.0.0_js_bootstrap.js' %}"></script>
+
+
+</head>
+<body>
+{% include 'autoCount/navbar.html' %}
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Item Code</th>
+        <th>Description</th>
+        <th>UOM</th>
+    </tr>
+    <tr>
+        <td> {{ item.itemcode }}</td>
+        <td> {{ item.description }}</td>
+        <td> {{ item.baseuom }}</td>
+    </tr>
+</table>
+
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Cost</th>
+        <th>Price</th>
+        <th>Price 2</th>
+        <th>Minimum Selling Price</th>
+        <th>Balance</th>
+    </tr>
+    <tr>
+        <td> {{ cost }}</td>
+        <td> {{ price }}</td>
+        <td> {{ price2 }}</td>
+        <td> {{ minsaleprice }}</td>
+        <td> {{ balqty }}</td>
+    </tr>
+</table>
+
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Account Number</th>
+        <th>Company</th>
+        <th>Credit Limit</th>
+
+    </tr>
+    <tr>
+        <td> {{ customer.accno }}</td>
+        <td> {{ customer.companyname }}</td>
+        <td> {{ customer.creditlimit }}</td>
+    </tr>
+</table>
+<form action="{% url 'order' dockey accno %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input class="btn btn-primary btn-sm mt-1 mb-1" type="submit" name = "submit"/>
+</form>
+
+</body>
+
+</html>
